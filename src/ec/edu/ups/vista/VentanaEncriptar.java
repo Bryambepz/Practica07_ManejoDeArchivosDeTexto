@@ -13,28 +13,33 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author braya
  */
 public class VentanaEncriptar extends javax.swing.JInternalFrame {
+
     private ControladorArchivo ctrlArchivo;
+
     //private VentanaPrincipal ventanaPrincipal;
     /**
      * Creates new form VentanaEncriptar
      */
     public VentanaEncriptar() {
-        
         initComponents();
-        ctrlArchivo = new ControladorArchivo(ruta());
+        btnGuardar.setVisible(true);
+        ctrlArchivo = new ControladorArchivo(rutae());
+        vacio();
     }
-    
-    public String ruta(){
-        String ruta = "C/Users/braya/Documents";
-        txtRuta.setText(ruta);
-        return ruta;
+
+    public String rutae() {
+        String r = "C/Users/braya/Documents";
+        txtRuta.setText(r);
+        return r;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +73,11 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(txtATexto);
 
         btnEncriptar.setText("Encriptar");
+        btnEncriptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncriptarActionPerformed(evt);
+            }
+        });
 
         txtAEncrip.setEditable(false);
         txtAEncrip.setColumns(20);
@@ -132,6 +142,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
     private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
         // TODO add your handling code here:
+        vacio();
         JFileChooser file = new JFileChooser();
         int seleccion = file.showOpenDialog(this);
 
@@ -149,7 +160,6 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         valor = fr.read();
                     }
                     this.txtATexto.setText(texto);
-
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -162,13 +172,32 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String textoEditado = txtATexto.getText();
-        ctrlArchivo.guardarTextp(textoEditado, txtRuta.getText());
-        System.out.println("tE...//" + textoEditado);
+        if (!txtAEncrip.equals("")) {
+            String textoEn = txtAEncrip.getText();
+            ctrlArchivo.guardarTextp(textoEn, txtRuta.getText());
+            JOptionPane.showMessageDialog(this, "Se ha guardado el texto encriptado");
+            //System.out.println("tE...//" + textoEn);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay nada para guardar");
+        }
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    
-    
+    private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncriptarActionPerformed
+        // TODO add your handling code here:
+        String obtenerTexto = txtATexto.getText();
+        String txtEncriptado = ctrlArchivo.encriptar(obtenerTexto);
+        txtAEncrip.setText(txtEncriptado);
+        ctrlArchivo.guardar(obtenerTexto, txtRuta.getText());
+        btnEncriptar.setEnabled(false);
+    }//GEN-LAST:event_btnEncriptarActionPerformed
+
+    public void vacio() {
+        txtATexto.setText("");
+        txtAEncrip.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEncriptar;
     private javax.swing.JButton btnExaminar;

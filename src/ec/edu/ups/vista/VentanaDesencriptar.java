@@ -5,25 +5,43 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorArchivo;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author braya
  */
 public class VentanaDesencriptar extends javax.swing.JInternalFrame {
-
+    private ControladorArchivo ctrlArchivo;
+    private VentanaEncriptar ventanaEncriptar;
+    
     /**
      * Creates new form VentanaDesencriptar
      */
     public VentanaDesencriptar() {
         initComponents();
+        ctrlArchivo = new ControladorArchivo(rutae());
+        vacio();
     }
-
+    
+    public String rutae() {
+        String r = "C/Users/braya/Documents";
+        txtRutad.setText(r);
+        return r;
+    }
+    
+//    public String ruta(){
+//        String ruta = "C/Users/braya/Documents";
+//        txtRutad.setText(ruta);
+//        return ruta;
+//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,25 +53,31 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         txtATexto = new javax.swing.JTextArea();
-        txtRuta = new javax.swing.JTextField();
+        txtRutad = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEncrip = new javax.swing.JTextArea();
         btnDesencriptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnExaminar1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
 
-        txtATexto.setEditable(false);
         txtATexto.setColumns(20);
         txtATexto.setRows(5);
         jScrollPane2.setViewportView(txtATexto);
 
+        txtEncrip.setEditable(false);
         txtEncrip.setColumns(20);
         txtEncrip.setRows(5);
         jScrollPane1.setViewportView(txtEncrip);
 
         btnDesencriptar.setText("Desencriptar");
+        btnDesencriptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesencriptarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ruta");
 
@@ -61,6 +85,13 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         btnExaminar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExaminar1ActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -74,26 +105,30 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
                         .addGap(41, 41, 41)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRutad, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnExaminar1))
+                        .addComponent(btnExaminar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDesencriptar)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRutad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btnExaminar1))
+                    .addComponent(btnExaminar1)
+                    .addComponent(btnGuardar))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(150, 150, 150)
@@ -111,6 +146,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
     private void btnExaminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminar1ActionPerformed
         // TODO add your handling code here:
+        vacio();
         JFileChooser file = new JFileChooser();
         int seleccion = file.showOpenDialog(this);
 
@@ -119,7 +155,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
             if (rutaArchivo.exists() == false) {
                 JOptionPane.showMessageDialog(this, "No existe ese archivo");
             } else {
-                txtRuta.setText(rutaArchivo.getAbsolutePath());
+                txtRutad.setText(rutaArchivo.getAbsolutePath());
                 try (FileReader fr = new FileReader(rutaArchivo)) {
                     String texto = "";
                     int valor = fr.read();
@@ -127,7 +163,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
                         texto = texto + (char) valor;
                         valor = fr.read();
                     }
-                    this.txtATexto.setText(texto);
+                    this.txtEncrip.setText(texto);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -138,15 +174,41 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnExaminar1ActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (!txtRutad.getText().equals("")) {
+            ctrlArchivo.guardarTextp(txtATexto.getText(), txtRutad.getText());
+            JOptionPane.showMessageDialog(this, "Se ha guardado el texto desencriptado");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay nada para guardar");
+        }
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencriptarActionPerformed
+        // TODO add your handling code here:
+        String textoDes = txtEncrip.getText();
+        String desencriptado = ctrlArchivo.desencriptar(textoDes);
+        txtATexto.setText(desencriptado);
+        ctrlArchivo.guardar(textoDes, txtRutad.getText());
+        btnDesencriptar.setEnabled(false);
+    }//GEN-LAST:event_btnDesencriptarActionPerformed
+    
+    public void vacio(){
+        txtATexto.setText("");
+        txtEncrip.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesencriptar;
     private javax.swing.JButton btnExaminar1;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea txtATexto;
     private javax.swing.JTextArea txtEncrip;
-    private javax.swing.JTextField txtRuta;
+    private javax.swing.JTextField txtRutad;
     // End of variables declaration//GEN-END:variables
 }
