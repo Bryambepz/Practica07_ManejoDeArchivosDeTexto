@@ -5,17 +5,23 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorArchivo;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author braya
  */
 public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VentanaDesencriptar
-     */
-    public VentanaDesencriptar() {
+    private ControladorArchivo controladorArchivo;
+    
+    public VentanaDesencriptar(ControladorArchivo controladorArchivo) {
         initComponents();
+	this.controladorArchivo = controladorArchivo;
     }
 
     /**
@@ -44,12 +50,22 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(txtATexto);
 
         btnExaminar.setText("Examinar");
+        btnExaminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExaminarActionPerformed(evt);
+            }
+        });
 
         txtEncrip.setColumns(20);
         txtEncrip.setRows(5);
         jScrollPane1.setViewportView(txtEncrip);
 
         btnDesencriptar.setText("Desencriptar");
+        btnDesencriptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesencriptarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ruta");
 
@@ -97,6 +113,27 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
+        JFileChooser file = new JFileChooser();
+        int seleccion = file.showOpenDialog(this);
+	if (seleccion == JFileChooser.APPROVE_OPTION) {
+	    File archivo = file.getSelectedFile();		
+	    if(!archivo.exists()){
+		JOptionPane.showMessageDialog(this, "El archivono existe");
+	    }else{
+		txtRuta.setText(archivo.getAbsolutePath());
+		String texto = controladorArchivo.leer(archivo);
+		txtEncrip.setText(texto);
+	    }
+	}
+    }//GEN-LAST:event_btnExaminarActionPerformed
+
+    private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencriptarActionPerformed
+        String texto = txtEncrip.getText();
+	texto = controladorArchivo.desencriptar(texto);
+	txtATexto.setText(texto);// TODO add your handling code here:
+    }//GEN-LAST:event_btnDesencriptarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

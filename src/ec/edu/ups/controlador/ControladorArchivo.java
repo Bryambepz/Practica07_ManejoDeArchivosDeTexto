@@ -13,14 +13,18 @@ import java.util.logging.Logger;
 public class ControladorArchivo {
     private File archivo;
     private HashMap<Character,Character> mapa;
+    private Random random;
+    private long seed;
     
     public ControladorArchivo(String ruta){
 	archivo = new File(ruta);
+	random = new Random();
 	generarMapa();
     }
     
     public ControladorArchivo(){
 	archivo = new File("archivo.txt");
+	random = new Random();
 	generarMapa();
     }
     
@@ -32,13 +36,13 @@ public class ControladorArchivo {
 	return archivo.getPath();
     }
     
-    public void generarMapa(){
-	generarMapa(0);
+    public void setSeed(long seed){
+	this.seed = seed;
+	random = new Random(seed);
     }
     
-    public void generarMapa(long seed){
+    public void generarMapa(){
 	mapa = new HashMap<>();
-	Random random = new Random(seed);
 	while(mapa.size() < 94){
 	    char valor1 = (char)(random.nextInt(95)+32);
 	    char valor2 = (char)(random.nextInt(95)+32);
@@ -52,7 +56,11 @@ public class ControladorArchivo {
     public String encriptar(String texto){
 	String encriptado = "";
 	for(int i = 0; i < texto.length(); i++){
-	    encriptado += mapa.get(texto.charAt(i));
+	    char caracter = texto.charAt(i);
+	    if(mapa.containsKey(texto.charAt(i)))
+		encriptado += mapa.get(texto.charAt(i));
+	    else
+		encriptado += texto.charAt(i);
 	}
 	return encriptado;
     }
@@ -60,12 +68,16 @@ public class ControladorArchivo {
     public String desencriptar(String texto){
 	String desencriptado = "";
 	for(int i = 0; i < texto.length(); i++){
-	    desencriptado += mapa.get(texto.charAt(i));
+	   if(mapa.containsKey(texto.charAt(i)))
+		desencriptado += mapa.get(texto.charAt(i));
+	    else
+		desencriptado += texto.charAt(i);
 	}
 	return desencriptado;
     }
     
-    public void guardar(String texto){
+    public void guardar(String texto, File archivo){
+	this.archivo = archivo;
 	FileWriter escritura = null;
 	try {
 	    texto = encriptar(texto);
@@ -82,11 +94,13 @@ public class ControladorArchivo {
 	}
     }
     
-    public String leer(){
+    public String leer(File archivo){
+	this.archivo = archivo;
 	try {
 	    Scanner lectura = new Scanner(archivo);
-	    String texto = lectura.nextLine();
-	    texto = desencriptar(texto);
+	    String texto = "";
+	    while(lectura.hasNextLine())
+		texto += lectura.nextLine()+"\n";
 	    return texto;
 	} catch (FileNotFoundException ex) {
 	    Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);

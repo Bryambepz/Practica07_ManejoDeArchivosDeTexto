@@ -5,6 +5,8 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorArchivo;
+
 /**
  *
  * @author braya
@@ -12,13 +14,15 @@ package ec.edu.ups.vista;
 public class VentanaPrincipal extends javax.swing.JFrame {
     private VentanaEncriptar ventanaEncripar;
     private VentanaDesencriptar ventanaDesencriptar;
+    private ControladorArchivo controladorArchivo;
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-        ventanaEncripar = new VentanaEncriptar();
-        ventanaDesencriptar = new VentanaDesencriptar();
+	controladorArchivo = new ControladorArchivo();
+        ventanaEncripar = new VentanaEncriptar(controladorArchivo);
+        ventanaDesencriptar = new VentanaDesencriptar(controladorArchivo);
     }
 
     /**
