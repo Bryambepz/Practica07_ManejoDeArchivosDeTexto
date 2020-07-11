@@ -65,10 +65,29 @@ public class ControladorArchivo {
 	return desencriptado;
     }
     
-    public void guardar(String texto){
+    public void guardar(String texto, String ruta){
+        archivo = new File(ruta);
 	FileWriter escritura = null;
 	try {
 	    texto = encriptar(texto);
+	    escritura = new FileWriter(archivo);
+	    escritura.write(texto);
+	} catch (IOException ex) {
+	    Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+	} finally {
+	    try {
+		escritura.close();
+	    } catch (IOException ex) {
+		Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+    }
+    
+    public void guardarTextp(String texto, String ruta){
+        archivo = new File(ruta);
+	FileWriter escritura = null;
+	try {
+	    //texto = encriptar(texto);
 	    escritura = new FileWriter(archivo);
 	    escritura.write(texto);
 	} catch (IOException ex) {

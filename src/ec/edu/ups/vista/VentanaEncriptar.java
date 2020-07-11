@@ -5,7 +5,9 @@
  */
 package ec.edu.ups.vista;
 
-import java.io.BufferedReader;
+import ec.edu.ups.controlador.ControladorArchivo;
+import java.awt.Event;
+//import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,15 +19,22 @@ import javax.swing.JOptionPane;
  * @author braya
  */
 public class VentanaEncriptar extends javax.swing.JInternalFrame {
-
+    private ControladorArchivo ctrlArchivo;
     //private VentanaPrincipal ventanaPrincipal;
     /**
      * Creates new form VentanaEncriptar
      */
     public VentanaEncriptar() {
+        
         initComponents();
+        ctrlArchivo = new ControladorArchivo(ruta());
     }
-
+    
+    public String ruta(){
+        String ruta = "C/Users/braya/Documents";
+        txtRuta.setText(ruta);
+        return ruta;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,26 +134,27 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         JFileChooser file = new JFileChooser();
         int seleccion = file.showOpenDialog(this);
-        
+
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File rutaArchivo = file.getSelectedFile();
-            if(rutaArchivo.exists() == false){
+            if (rutaArchivo.exists() == false) {
                 JOptionPane.showMessageDialog(this, "No existe ese archivo");
-            }else{
+            } else {
                 txtRuta.setText(rutaArchivo.getAbsolutePath());
-                try (FileReader fr = new FileReader(rutaArchivo)){
+                try (FileReader fr = new FileReader(rutaArchivo)) {
                     String texto = "";
                     int valor = fr.read();
-                    while (valor != -1) {                        
+                    while (valor != -1) {
                         texto = texto + (char) valor;
                         valor = fr.read();
                     }
                     this.txtATexto.setText(texto);
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "No selecciono ningun archivo");
         }
 
@@ -152,9 +162,13 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String textoEditado = txtATexto.getText();
+        ctrlArchivo.guardarTextp(textoEditado, txtRuta.getText());
+        System.out.println("tE...//" + textoEditado);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEncriptar;
     private javax.swing.JButton btnExaminar;
