@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.vista;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -134,16 +135,24 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File rutaArchivo = file.getSelectedFile();
-            File archivo = new File(rutaArchivo.getAbsolutePath());
-            if(archivo.exists() == false){
+            if(rutaArchivo.exists() == false){
                 JOptionPane.showMessageDialog(this, "No existe ese archivo");
             }else{
                 txtRuta.setText(rutaArchivo.getAbsolutePath());
-                try (FileReader fr = new FileReader(archivo)){
-                    
-                } catch (Exception e) {
+                try (FileReader fr = new FileReader(rutaArchivo)){
+                    String texto = "";
+                    int valor = fr.read();
+                    while (valor != -1) {                        
+                        texto = texto + (char) valor;
+                        valor = fr.read();
+                    }
+                    this.txtAText.setText(texto);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "No selecciono ningun archivo");
         }
 
     }//GEN-LAST:event_btnExaminarActionPerformed
