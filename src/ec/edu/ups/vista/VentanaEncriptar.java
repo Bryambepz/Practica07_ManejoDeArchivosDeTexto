@@ -60,6 +60,23 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         btnExaminar.setText("Examinar");
         btnExaminar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +189,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (!txtAEncrip.equals("")) {
+        if (!txtAEncrip.getText().equals("")) {
             String textoEn = txtAEncrip.getText();
             ctrlArchivo.guardarTextp(textoEn, txtRuta.getText());
             JOptionPane.showMessageDialog(this, "Se ha guardado el texto encriptado");
@@ -187,15 +204,26 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
     private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncriptarActionPerformed
         // TODO add your handling code here:
-        String obtenerTexto = txtATexto.getText();
-        String txtEncriptado = ctrlArchivo.encriptar(obtenerTexto);
-        txtAEncrip.setText(txtEncriptado);
-        ctrlArchivo.guardar(obtenerTexto, txtRuta.getText());
-        btnEncriptar.setEnabled(false);
+        if (txtATexto != null) {
+            String obtenerTexto = txtATexto.getText();
+            String txtEncriptado = ctrlArchivo.encriptar(obtenerTexto);
+            txtAEncrip.setText(txtEncriptado);
+            ctrlArchivo.guardar(obtenerTexto, txtRuta.getText());
+//        btnEncriptar.setEnabled(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay texto para encriptar");
+        }
+        
     }//GEN-LAST:event_btnEncriptarActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        vacio();
+    }//GEN-LAST:event_formInternalFrameActivated
 
     public void vacio() {
         txtATexto.setText("");
+        txtRuta.setText("C/Users/braya/Documents");
         txtAEncrip.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

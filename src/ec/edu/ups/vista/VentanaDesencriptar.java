@@ -55,22 +55,39 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         txtATexto = new javax.swing.JTextArea();
         txtRutad = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtEncrip = new javax.swing.JTextArea();
+        txtAEncrip = new javax.swing.JTextArea();
         btnDesencriptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnExaminar1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         txtATexto.setColumns(20);
         txtATexto.setRows(5);
         jScrollPane2.setViewportView(txtATexto);
 
-        txtEncrip.setEditable(false);
-        txtEncrip.setColumns(20);
-        txtEncrip.setRows(5);
-        jScrollPane1.setViewportView(txtEncrip);
+        txtAEncrip.setEditable(false);
+        txtAEncrip.setColumns(20);
+        txtAEncrip.setRows(5);
+        jScrollPane1.setViewportView(txtAEncrip);
 
         btnDesencriptar.setText("Desencriptar");
         btnDesencriptar.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +180,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
                         texto = texto + (char) valor;
                         valor = fr.read();
                     }
-                    this.txtEncrip.setText(texto);
+                    this.txtAEncrip.setText(texto);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -176,7 +193,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (!txtRutad.getText().equals("")) {
+        if (!txtATexto.getText().equals("")) {
             ctrlArchivo.guardarTextp(txtATexto.getText(), txtRutad.getText());
             JOptionPane.showMessageDialog(this, "Se ha guardado el texto desencriptado");
             this.dispose();
@@ -188,16 +205,27 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
     private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencriptarActionPerformed
         // TODO add your handling code here:
-        String textoDes = txtEncrip.getText();
-        String desencriptado = ctrlArchivo.desencriptar(textoDes);
-        txtATexto.setText(desencriptado);
-        ctrlArchivo.guardar(textoDes, txtRutad.getText());
-        btnDesencriptar.setEnabled(false);
+        if (!txtAEncrip.equals("")) {
+            String textoDes = txtAEncrip.getText();
+            String desencriptado = ctrlArchivo.desencriptar(textoDes);
+            txtATexto.setText(desencriptado);
+            ctrlArchivo.guardar(textoDes, txtRutad.getText());
+//        btnDesencriptar.setEnabled(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay texto encriptado");
+        }
+        
     }//GEN-LAST:event_btnDesencriptarActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        vacio();
+    }//GEN-LAST:event_formInternalFrameActivated
     
     public void vacio(){
         txtATexto.setText("");
-        txtEncrip.setText("");
+        txtRutad.setText("C/Users/braya/Documents");
+        txtAEncrip.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -207,8 +235,8 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtAEncrip;
     private javax.swing.JTextArea txtATexto;
-    private javax.swing.JTextArea txtEncrip;
     private javax.swing.JTextField txtRutad;
     // End of variables declaration//GEN-END:variables
 }
