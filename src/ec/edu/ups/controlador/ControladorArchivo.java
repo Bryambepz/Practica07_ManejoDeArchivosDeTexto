@@ -56,7 +56,6 @@ public class ControladorArchivo {
     public String encriptar(String texto){
 	String encriptado = "";
 	for(int i = 0; i < texto.length(); i++){
-	    char caracter = texto.charAt(i);
 	    if(mapa.containsKey(texto.charAt(i)))
 		encriptado += mapa.get(texto.charAt(i));
 	    else
@@ -96,14 +95,17 @@ public class ControladorArchivo {
     
     public String leer(File archivo){
 	this.archivo = archivo;
+	Scanner lectura = null;
 	try {
-	    Scanner lectura = new Scanner(archivo);
+	    lectura = new Scanner(archivo);
 	    String texto = "";
 	    while(lectura.hasNextLine())
 		texto += lectura.nextLine()+"\n";
 	    return texto;
 	} catch (FileNotFoundException ex) {
 	    Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+	} finally{
+	    lectura.close();
 	}
 	return null;
     }
