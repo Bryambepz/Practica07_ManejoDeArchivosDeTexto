@@ -38,17 +38,15 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         txtRuta = new javax.swing.JTextField();
         btnExaminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtAText = new javax.swing.JTextArea();
+        txtATexto = new javax.swing.JTextArea();
         btnEncriptar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAEncrip = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Encriptar"));
         setClosable(true);
 
-        btnExaminar.setBackground(new java.awt.Color(21, 61, 87));
         btnExaminar.setText("Examinar");
         btnExaminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,22 +54,19 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
             }
         });
 
-        txtAText.setColumns(20);
-        txtAText.setRows(5);
-        jScrollPane1.setViewportView(txtAText);
+        txtATexto.setColumns(20);
+        txtATexto.setRows(5);
+        jScrollPane1.setViewportView(txtATexto);
 
-        btnEncriptar.setBackground(new java.awt.Color(21, 61, 87));
         btnEncriptar.setText("Encriptar");
 
         txtAEncrip.setEditable(false);
-        txtAEncrip.setBackground(new java.awt.Color(197, 216, 220));
         txtAEncrip.setColumns(20);
         txtAEncrip.setRows(5);
         jScrollPane2.setViewportView(txtAEncrip);
 
         jLabel1.setText("Ruta");
 
-        btnGuardar.setBackground(new java.awt.Color(21, 61, 87));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +80,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -97,9 +92,9 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnExaminar))))
+                        .addComponent(btnExaminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,19 +105,17 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnExaminar))
                         .addGap(150, 150, 150)
                         .addComponent(btnEncriptar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnExaminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
+                        .addGap(135, 135, 135)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                             .addComponent(jScrollPane2))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,7 +139,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         texto = texto + (char) valor;
                         valor = fr.read();
                     }
-                    this.txtAText.setText(texto);
+                    this.txtATexto.setText(texto);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -170,7 +163,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea txtAEncrip;
-    private javax.swing.JTextArea txtAText;
+    private javax.swing.JTextArea txtATexto;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }

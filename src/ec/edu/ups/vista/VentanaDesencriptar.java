@@ -28,31 +28,27 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtAtext = new javax.swing.JTextArea();
+        txtATexto = new javax.swing.JTextArea();
         txtRuta = new javax.swing.JTextField();
         btnExaminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtAEncrip = new javax.swing.JTextArea();
+        txtEncrip = new javax.swing.JTextArea();
         btnDesencriptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Desencriptar"));
         setClosable(true);
 
-        txtAtext.setEditable(false);
-        txtAtext.setBackground(new java.awt.Color(197, 216, 220));
-        txtAtext.setColumns(20);
-        txtAtext.setRows(5);
-        jScrollPane2.setViewportView(txtAtext);
+        txtATexto.setEditable(false);
+        txtATexto.setColumns(20);
+        txtATexto.setRows(5);
+        jScrollPane2.setViewportView(txtATexto);
 
-        btnExaminar.setBackground(new java.awt.Color(21, 61, 87));
         btnExaminar.setText("Examinar");
 
-        txtAEncrip.setColumns(20);
-        txtAEncrip.setRows(5);
-        jScrollPane1.setViewportView(txtAEncrip);
+        txtEncrip.setColumns(20);
+        txtEncrip.setRows(5);
+        jScrollPane1.setViewportView(txtEncrip);
 
-        btnDesencriptar.setBackground(new java.awt.Color(21, 61, 87));
         btnDesencriptar.setText("Desencriptar");
 
         jLabel1.setText("Ruta");
@@ -96,7 +92,7 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                             .addComponent(jScrollPane2))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,8 +105,8 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtAEncrip;
-    private javax.swing.JTextArea txtAtext;
+    private javax.swing.JTextArea txtATexto;
+    private javax.swing.JTextArea txtEncrip;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }
