@@ -95,19 +95,7 @@
         </Component>
       </SubComponents>
     </Container>
-<<<<<<< HEAD
-    <Component class="javax.swing.JTextField" name="txtRuta">
-    </Component>
-    <Component class="javax.swing.JButton" name="btnExaminar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Examinar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExaminarActionPerformed"/>
-      </Events>
-=======
     <Component class="javax.swing.JTextField" name="txtRutad">
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

@@ -7,7 +7,6 @@ package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorArchivo;
 import java.io.File;
-import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -17,6 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 
+    /**
+     * Atributos de la clase
+     */
     private ControladorArchivo controladorArchivo;
     
     public VentanaDesencriptar(ControladorArchivo controladorArchivo) {
@@ -114,13 +116,17 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre un JFileChooser para que el usuario seleccione un archivo.
+     * Muestra los contenidos del archivo en un JTextArea
+     */
     private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
         JFileChooser file = new JFileChooser();
         int seleccion = file.showOpenDialog(this);
 	if (seleccion == JFileChooser.APPROVE_OPTION) {
 	    File archivo = file.getSelectedFile();		
 	    if(!archivo.exists()){
-		JOptionPane.showMessageDialog(this, "El archivono existe");
+		JOptionPane.showMessageDialog(this, "El archivono no existe");
 	    }else{
 		txtRuta.setText(archivo.getAbsolutePath());
 		String texto = controladorArchivo.leer(archivo);
@@ -129,6 +135,9 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 	}
     }//GEN-LAST:event_btnExaminarActionPerformed
 
+    /**
+     * Desencripta el texto que está en el JTextArea, y lo muestra en otro JTextArea
+     */
     private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencriptarActionPerformed
         String texto = txtEncrip.getText();
 	texto = controladorArchivo.desencriptar(texto);

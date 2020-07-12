@@ -7,36 +7,33 @@ package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorArchivo;
 import java.io.File;
-<<<<<<< HEAD
-import java.io.IOException;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-=======
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
 
 /**
  *
  * @author braya
  */
 public class VentanaDesencriptar extends javax.swing.JInternalFrame {
-<<<<<<< HEAD
-
-    private ControladorArchivo controladorArchivo;
-    
-    public VentanaDesencriptar(ControladorArchivo controladorArchivo) {
-        initComponents();
-	this.controladorArchivo = controladorArchivo;
-=======
+    private ControladorArchivo ctrlArchivo;
+    private VentanaEncriptar ventanaEncriptar;
     
     /**
      * Creates new form VentanaDesencriptar
      */
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
+    public VentanaDesencriptar() {
+        initComponents();
+        ctrlArchivo = new ControladorArchivo(rutae());
+        vacio();
+    }
+    
+    public String rutae() {
+        String r = "C/Users/braya/Documents";
+        txtRutad.setText(r);
+        return r;
     }
     
 //    public String ruta(){
@@ -87,23 +84,10 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         txtATexto.setRows(5);
         jScrollPane2.setViewportView(txtATexto);
 
-<<<<<<< HEAD
-        btnExaminar.setText("Examinar");
-        btnExaminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExaminarActionPerformed(evt);
-            }
-        });
-
-        txtEncrip.setColumns(20);
-        txtEncrip.setRows(5);
-        jScrollPane1.setViewportView(txtEncrip);
-=======
         txtAEncrip.setEditable(false);
         txtAEncrip.setColumns(20);
         txtAEncrip.setRows(5);
         jScrollPane1.setViewportView(txtAEncrip);
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
 
         btnDesencriptar.setText("Desencriptar");
         btnDesencriptar.addActionListener(new java.awt.event.ActionListener() {
@@ -177,29 +161,6 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
-    private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
-        JFileChooser file = new JFileChooser();
-        int seleccion = file.showOpenDialog(this);
-	if (seleccion == JFileChooser.APPROVE_OPTION) {
-	    File archivo = file.getSelectedFile();		
-	    if(!archivo.exists()){
-		JOptionPane.showMessageDialog(this, "El archivono existe");
-	    }else{
-		txtRuta.setText(archivo.getAbsolutePath());
-		String texto = controladorArchivo.leer(archivo);
-		txtEncrip.setText(texto);
-	    }
-	}
-    }//GEN-LAST:event_btnExaminarActionPerformed
-
-    private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        String texto = txtEncrip.getText();
-	texto = controladorArchivo.desencriptar(texto);
-	txtATexto.setText(texto);// TODO add your handling code here:
-    }                                               
-
-=======
     private void btnExaminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminar1ActionPerformed
         // TODO add your handling code here:
         vacio();
@@ -229,7 +190,6 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No selecciono ningun archivo");
         }
     }//GEN-LAST:event_btnExaminar1ActionPerformed
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:

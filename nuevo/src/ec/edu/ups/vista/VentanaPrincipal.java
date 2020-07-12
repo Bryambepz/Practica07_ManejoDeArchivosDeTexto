@@ -14,22 +14,16 @@ import ec.edu.ups.controlador.ControladorArchivo;
 public class VentanaPrincipal extends javax.swing.JFrame {
     private VentanaEncriptar ventanaEncripar;
     private VentanaDesencriptar ventanaDesencriptar;
-<<<<<<< HEAD
-    private ControladorArchivo controladorArchivo;
-=======
+    private ControladorArchivo ctrlArchivo;
     
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-<<<<<<< HEAD
-	controladorArchivo = new ControladorArchivo();
-        ventanaEncriptar = new VentanaEncriptar(controladorArchivo);
-        ventanaDesencriptar = new VentanaDesencriptar(controladorArchivo);
-=======
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
+        ventanaEncripar = new VentanaEncriptar();
+        ventanaDesencriptar = new VentanaDesencriptar();
+        ctrlArchivo = new  ControladorArchivo();
     }
 
     /**

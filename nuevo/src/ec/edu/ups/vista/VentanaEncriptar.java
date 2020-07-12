@@ -6,14 +6,11 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorArchivo;
-<<<<<<< HEAD
-=======
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
+import java.awt.Event;
+//import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -27,16 +24,22 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
     private ControladorArchivo ctrlArchivo;
 
     //private VentanaPrincipal ventanaPrincipal;
-    private ControladorArchivo controladorArchivo;
-
-    public VentanaEncriptar(ControladorArchivo controladorArchivo) {
+    /**
+     * Creates new form VentanaEncriptar
+     */
+    public VentanaEncriptar() {
         initComponents();
-<<<<<<< HEAD
-	this.controladorArchivo = controladorArchivo;
-=======
-        //vacio();
+        btnGuardar.setVisible(true);
+        ctrlArchivo = new ControladorArchivo(rutae());
+        vacio();
     }
-    
+
+    public String rutae() {
+        String r = "C/Users/braya/Documents";
+        txtRuta.setText(r);
+        return r;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,13 +50,14 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         txtRuta = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
+        btnExaminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtATexto = new javax.swing.JTextArea();
         btnEncriptar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAEncrip = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -74,10 +78,10 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
             }
         });
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnExaminar.setText("Examinar");
+        btnExaminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnExaminarActionPerformed(evt);
             }
         });
 
@@ -99,13 +103,20 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Ruta");
 
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -117,6 +128,8 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
+                        .addComponent(btnExaminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardar)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
@@ -129,7 +142,8 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(btnGuardar))
+                            .addComponent(btnGuardar)
+                            .addComponent(btnExaminar))
                         .addGap(150, 150, 150)
                         .addComponent(btnEncriptar))
                     .addGroup(layout.createSequentialGroup()
@@ -143,42 +157,6 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-        JFileChooser file = new JFileChooser();
-        int seleccion = file.showSaveDialog(this);
-        try {
-	    if (seleccion == JFileChooser.APPROVE_OPTION) {
-		File archivo = file.getSelectedFile();
-		txtRuta.setText(archivo.getAbsolutePath());
-		if(!archivo.exists()){
-		    archivo.createNewFile();
-		    btnEncriptarActionPerformed(evt);
-		    controladorArchivo.guardar(txtATexto.getText(), archivo);
-		}else{
-		    int op = JOptionPane.showConfirmDialog(this, "El archivo ya existe, ¿Desea sobreescribirlo?");
-		    if(op == JOptionPane.OK_OPTION){
-			archivo.delete();
-			archivo.createNewFile();
-			btnEncriptarActionPerformed(evt);
-			controladorArchivo.guardar(txtATexto.getText(), archivo);
-		    }
-		}
-	    }
-	} catch (IOException ex) {
-	    JOptionPane.showMessageDialog(this, "Error al guardar el archivo");
-	}
-    }                                          
-
-    private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        String texto = txtATexto.getText();
-	texto = controladorArchivo.encriptar(texto);
-	txtAEncrip.setText(texto);
-    }                                            
-
-=======
-/*
     private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
         // TODO add your handling code here:
         vacio();
@@ -208,7 +186,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnExaminarActionPerformed
-/*
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         if (!txtAEncrip.getText().equals("")) {
@@ -223,7 +201,7 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-/*
+
     private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncriptarActionPerformed
         // TODO add your handling code here:
         if (txtATexto != null) {
@@ -237,16 +215,20 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnEncriptarActionPerformed
-*/
->>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
-
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-
+        // TODO add your handling code here:
+        vacio();
     }//GEN-LAST:event_formInternalFrameActivated
 
+    public void vacio() {
+        txtATexto.setText("");
+        txtRuta.setText("C/Users/braya/Documents");
+        txtAEncrip.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEncriptar;
+    private javax.swing.JButton btnExaminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

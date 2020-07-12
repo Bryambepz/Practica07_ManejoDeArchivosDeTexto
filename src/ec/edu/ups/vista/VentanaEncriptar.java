@@ -6,12 +6,8 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorArchivo;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -21,7 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class VentanaEncriptar extends javax.swing.JInternalFrame {
 
-    //private VentanaPrincipal ventanaPrincipal;
+    /**
+     * Atributos de la clase
+     */
     private ControladorArchivo controladorArchivo;
 
     public VentanaEncriptar(ControladorArchivo controladorArchivo) {
@@ -118,6 +116,11 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre un JFileChooser para seleccionar un archivo en donde se guardará el texto encriptado.
+     * Si no existe el archivo lo crea.
+     * Si el archivo ya existe pregunta si desea sobreescribir
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         JFileChooser file = new JFileChooser();
@@ -145,6 +148,9 @@ public class VentanaEncriptar extends javax.swing.JInternalFrame {
 	}
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    /**
+     * Desencripta el texto que está en el JTextArea
+     */
     private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncriptarActionPerformed
         String texto = txtATexto.getText();
 	texto = controladorArchivo.encriptar(texto);
