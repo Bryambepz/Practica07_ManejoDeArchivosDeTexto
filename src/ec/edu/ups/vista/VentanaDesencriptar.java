@@ -45,6 +45,23 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         txtATexto.setEditable(false);
         txtATexto.setColumns(20);
@@ -144,6 +161,18 @@ public class VentanaDesencriptar extends javax.swing.JInternalFrame {
 	txtATexto.setText(texto);// TODO add your handling code here:
     }//GEN-LAST:event_btnDesencriptarActionPerformed
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        vacio();
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    /**
+     * Limpia todos los campos con texto
+     */
+    public void vacio(){
+	txtATexto.setText("");
+	txtEncrip.setText("");
+	txtRuta.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesencriptar;
