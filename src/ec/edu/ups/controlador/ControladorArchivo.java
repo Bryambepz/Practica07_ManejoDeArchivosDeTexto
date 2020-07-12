@@ -75,8 +75,11 @@ public class ControladorArchivo {
 	return desencriptado;
     }
     
+<<<<<<< HEAD
     public void guardar(String texto, File archivo){
 	this.archivo = archivo;
+=======
+>>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
 	FileWriter escritura = null;
 	try {
 	    texto = encriptar(texto);
@@ -93,9 +96,12 @@ public class ControladorArchivo {
 	}
     }
     
+<<<<<<< HEAD
     public String leer(File archivo){
 	this.archivo = archivo;
 	Scanner lectura = null;
+=======
+>>>>>>> 9b36e3284bde3b711f1d68a82691fd1cb7041b0f
 	try {
 	    lectura = new Scanner(archivo);
 	    String texto = "";
