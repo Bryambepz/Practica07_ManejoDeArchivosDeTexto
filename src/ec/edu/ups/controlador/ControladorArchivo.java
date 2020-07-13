@@ -20,6 +20,7 @@ public class ControladorArchivo {
     private File archivo;
     private HashMap<Character,Character> mapa;
     private Random random;
+    private long seed;
     
     /**
      * Constructor de la clase ControladorArchivo
@@ -28,6 +29,8 @@ public class ControladorArchivo {
     public ControladorArchivo(String ruta){
 	archivo = new File(ruta);
 	random = new Random();
+	seed = random.nextLong();
+	random = new Random(seed);
 	generarMapa();
     }
     
@@ -38,6 +41,8 @@ public class ControladorArchivo {
     public ControladorArchivo(){
 	archivo = new File("archivo.txt");
 	random = new Random();
+	seed = random.nextLong();
+	random = new Random(seed);
 	generarMapa();
     }
     
@@ -122,10 +127,11 @@ public class ControladorArchivo {
     public void guardar(String texto, File archivo){
 	this.archivo = archivo;
 	FileWriter escritura = null;
+	String txt = seed+"\n";
 	try {
-	    texto = encriptar(texto);
+	    txt += encriptar(texto);
 	    escritura = new FileWriter(archivo);
-	    escritura.write(texto);
+	    escritura.write(txt);
 	} catch (IOException ex) {
 	    Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
@@ -147,7 +153,10 @@ public class ControladorArchivo {
 	Scanner lectura = null;
 	try {
 	    lectura = new Scanner(archivo);
-	    String texto = "";
+	    String texto = lectura.nextLine();
+	    setSeed(Long.parseLong(texto));
+	    generarMapa();
+	    texto = "";
 	    while(lectura.hasNextLine())
 		texto += lectura.nextLine()+"\n";
 	    return texto;
