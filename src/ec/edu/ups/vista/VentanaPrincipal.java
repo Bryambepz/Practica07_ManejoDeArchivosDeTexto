@@ -12,18 +12,20 @@ import ec.edu.ups.controlador.ControladorArchivo;
  * @author braya
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    private VentanaEncriptar ventanaEncripar;
+    /**
+     * Atributos de la clase
+     */
+    private VentanaEncriptar ventanaEncriptar;
     private VentanaDesencriptar ventanaDesencriptar;
-    private ControladorArchivo ctrlArchivo;
-    
+    private ControladorArchivo controladorArchivo;
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-        ventanaEncripar = new VentanaEncriptar();
-        ventanaDesencriptar = new VentanaDesencriptar();
-        ctrlArchivo = new  ControladorArchivo();
+	controladorArchivo = new ControladorArchivo();
+        ventanaEncriptar = new VentanaEncriptar(controladorArchivo);
+        ventanaDesencriptar = new VentanaDesencriptar(controladorArchivo);
     }
 
     /**
@@ -104,18 +106,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    
+    /**
+     * Muestra la ventana para encriptar un texto y guardar en un archivo
+     */
     private void menuItemEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEncriptarActionPerformed
         // TODO add your handling code here:
-        desktopPane.add(ventanaEncripar);
-        ventanaEncripar.setVisible(true);
-        ventanaDesencriptar.setVisible(false);
+        desktopPane.add(ventanaEncriptar);
+        ventanaEncriptar.setVisible(true);
+        ventanaDesencriptar.dispose();
     }//GEN-LAST:event_menuItemEncriptarActionPerformed
 
+    /**
+     * Muestra la ventana para abrir un archivo de texto y desencriptar su contenido
+     */
     private void menuItemDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDesencriptarActionPerformed
         // TODO add your handling code here:
         desktopPane.add(ventanaDesencriptar);
         ventanaDesencriptar.setVisible(true);
-        ventanaEncripar.setVisible(false);
+        ventanaEncriptar.dispose();
     }//GEN-LAST:event_menuItemDesencriptarActionPerformed
 
     /**
